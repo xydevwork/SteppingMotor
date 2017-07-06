@@ -5,6 +5,7 @@ void L298N_GPIO_Init(void)
 	GPIO_InitTypeDef GPIO_InitStruct;
 	/* 使能(开启)端口时钟 */  
   L298N_RCC_CLK_ENABLE();
+//	L298N_RCC_CLK_ENABLEB();
 	
 	HAL_GPIO_WritePin(L298N_GPIO_PORT,L298N_GPIO_PIN,GPIO_PIN_RESET);
 	

@@ -7,31 +7,31 @@ void KEY_GPIO_Init(void)
 	
 	/* 使能(开启)KEY引脚对应IO端口时钟 */  
   KEY1_RCC_CLK_ENABLE();
-//  KEY2_RCC_CLK_ENABLE();
+  KEY2_RCC_CLK_ENABLE();
   
   /* 配置KEY1 GPIO:输入下拉模式 */
-  GPIO_InitStruct.Pin = KEY1_GPIO_PIN|KEY2_GPIO_PIN|KEY3_GPIO_PIN|KEY4_GPIO_PIN;
+  GPIO_InitStruct.Pin = KEY1_GPIO_PIN;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(KEY1_GPIO, &GPIO_InitStruct);  
   
-//  /* 配置KEY2 GPIO:输入上拉模式 */
-//  GPIO_InitStruct.Pin = KEY2_GPIO_PIN;
-//  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-//  GPIO_InitStruct.Pull = GPIO_PULLUP;
-//  HAL_GPIO_Init(KEY2_GPIO, &GPIO_InitStruct);
+  /* 配置KEY2 GPIO:输入上拉模式 */
+  GPIO_InitStruct.Pin = KEY2_GPIO_PIN;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(KEY2_GPIO, &GPIO_InitStruct);
 
-//	/* 配置KEY3 GPIO:输入上拉模式 */
-//  GPIO_InitStruct.Pin = KEY3_GPIO_PIN;
-//  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-//  GPIO_InitStruct.Pull = GPIO_PULLUP;
-//  HAL_GPIO_Init(KEY3_GPIO, &GPIO_InitStruct);
-//	
-//		/* 配置KEY3 GPIO:输入上拉模式 */
-//  GPIO_InitStruct.Pin = KEY4_GPIO_PIN;
-//  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-//  GPIO_InitStruct.Pull = GPIO_PULLUP;
-//  HAL_GPIO_Init(KEY4_GPIO, &GPIO_InitStruct);
+	/* 配置KEY3 GPIO:输入上拉模式 */
+  GPIO_InitStruct.Pin = KEY3_GPIO_PIN;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(KEY3_GPIO, &GPIO_InitStruct);
+	
+		/* 配置KEY3 GPIO:输入上拉模式 */
+  GPIO_InitStruct.Pin = KEY4_GPIO_PIN;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(KEY4_GPIO, &GPIO_InitStruct);
 }
 
 /**

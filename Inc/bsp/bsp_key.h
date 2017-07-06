@@ -11,9 +11,9 @@ typedef enum
 }KEYState_TypeDef;
 
 /* 宏定义 --------------------------------------------------------------------*/
-#define KEY1_RCC_CLK_ENABLE           __HAL_RCC_GPIOA_CLK_ENABLE
-#define KEY1_GPIO_PIN                 GPIO_PIN_4
-#define KEY1_GPIO                     GPIOA
+#define KEY1_RCC_CLK_ENABLE           __HAL_RCC_GPIOB_CLK_ENABLE
+#define KEY1_GPIO_PIN                 GPIO_PIN_1
+#define KEY1_GPIO                     GPIOB
 #define KEY1_DOWN_LEVEL               0  /* 根据原理图设计，KEY1按下时引脚为高电平，所以这里设置为1 */
 
 #define KEY2_RCC_CLK_ENABLE           __HAL_RCC_GPIOA_CLK_ENABLE
@@ -31,7 +31,7 @@ typedef enum
 #define KEY4_GPIO                     GPIOA
 #define KEY4_DOWN_LEVEL               0  /* 根据原理图设计，KEY2按下时引脚为低电平，所以这里设置为0 */
 
-#define KEY_ENABLE 										__HAL_RCC_GPIOA_CLK_DISABLE()
+//#define KEY_ENABLE 										__HAL_RCC_GPIOA_CLK_DISABLE()
 
 /* 扩展变量 ------------------------------------------------------------------*/
 /* 函数声明 ------------------------------------------------------------------*/

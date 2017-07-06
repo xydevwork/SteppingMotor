@@ -3,7 +3,7 @@
 <title>Static Call Graph - [LED_Demo\LED_Demo.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image LED_Demo\LED_Demo.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Wed Jul 05 10:01:38 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Thu Jul 06 14:24:30 2017
 <BR><P>
 <H3>Maximum Stack Usage =        156 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -289,8 +289,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f030x6.o(RESET)
 </UL>
-<P><STRONG><a name="[2e]"></a>KEY_GPIO_Init</STRONG> (Thumb, 48 bytes, Stack size 32 bytes, bsp_key.o(i.KEY_GPIO_Init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = KEY_GPIO_Init &rArr; HAL_GPIO_Init
+<P><STRONG><a name="[2e]"></a>KEY_GPIO_Init</STRONG> (Thumb, 104 bytes, Stack size 40 bytes, bsp_key.o(i.KEY_GPIO_Init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = KEY_GPIO_Init &rArr; HAL_GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
 </UL>
@@ -306,7 +306,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[32]"></a>Motor_Direction</STRONG> (Thumb, 100 bytes, Stack size 24 bytes, main.o(i.Motor_Direction))
+<P><STRONG><a name="[32]"></a>Motor_Direction</STRONG> (Thumb, 102 bytes, Stack size 24 bytes, main.o(i.Motor_Direction))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = Motor_Direction &rArr; Motor_Stop
 </UL>
 <BR>[Calls]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_ReadPin

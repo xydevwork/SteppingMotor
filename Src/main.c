@@ -50,23 +50,21 @@
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 #define EIGHTSTEP   									1
-#define STEPMOTOR_SPEED               2  	 // 定义步进电机速度，值越小，速度越快,最小不能小于2                                        
+#define STEPMOTOR_SPEED               1  	 // 定义步进电机速度，值越小，速度越快,最小不能小于1                                        
 #define STEPMOTOR_CIRCLE_NUMBER       0    //  转动圈数
 #define STEPMOTOR_DIRECTION           1    // 1：顺时针  0：逆时针
 
 /* 私有变量 ------------------------------------------------------------------*/
 // 速度，该值越小，速度越快，最小不能小于8
 uint8_t speed=STEPMOTOR_SPEED;
-// 转动圈数：28BYJ-48步进电机的步距角度为5.625/64，即每64个脉冲转5.625度
-// 要转一圈需要360/5.625*64=4096个脉冲。
+// 转动圈数：步进电机的步距角度为18°，即每个脉冲转18°
+// 要转一圈需要360/18=20个脉冲。
 uint32_t Circle_number=STEPMOTOR_CIRCLE_NUMBER;
 // 选择方向控制
 uint8_t direction = STEPMOTOR_DIRECTION;
 
-uint8_t tmr_flag;
-uint8_t key3_flag;
-uint8_t key3_count;
-uint8_t key3_on;
+uint8_t tmr_flag;  // 1ms定时器标志位 
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -170,8 +168,8 @@ static void step_motor_pulse(uint8_t step,uint8_t direction)
 	}
 }
 /* USER CODE END 0 */
-uint8_t direction_flag;
-GPIO_PinState PinState;
+uint8_t direction_flag; //微动开关标志位 1 ：逆时针转到底 2：顺时针转到底
+//GPIO_PinState PinState;
 int main(void)
 {
 
@@ -195,11 +193,11 @@ int main(void)
 
   /* USER CODE END SysInit */
 
-  /* Initialize all configured peripherals */
-  KEY_GPIO_Init();
-	L298N_GPIO_Init();
+  /* Initialize all configured perip  herals */
+ 
   /* USER CODE BEGIN 2 */
-
+	KEY_GPIO_Init(); 		//键盘初始化
+	L298N_GPIO_Init();	//步进电机驱动初始化
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -208,12 +206,12 @@ int main(void)
   {
   /* USER CODE END WHILE */
 	
-	Motor_Direction();
   /* USER CODE BEGIN 3 */
-  Motor_ToEnd();
-		if (tmr_flag )
+	Motor_Direction(); 												//检测方向控制按钮是否按下	
+  Motor_ToEnd();		 												//检测微动开关是否按下	
+		if (tmr_flag )	 												//1ms执行一次
 		{
-			tmr_flag =0;
+			tmr_flag =0;	 												//清除中断标志位
 			static uint8_t count=0;               // 用于旋转速度控制
 			static uint8_t step=0;                // 当前步进节拍
 			static uint16_t pulse_count=0;        // 脉冲计数，20个脉冲电机旋转一圈
@@ -229,7 +227,7 @@ int main(void)
 					if(step==8) step=0;               // 循环开始输出节拍
 					count=0;                          // 清零时间计数
 				}
-				if(pulse_count==20)               // 如果已经输出了20个脉冲信号，已经转动了一圈
+				if(pulse_count==20)               	// 如果已经输出了20个脉冲信号，已经转动了一圈
 				{
 					pulse_count=0;                    // 脉冲计数清零
 					Circle_number--;                  // 等待旋转圈数减1
@@ -237,7 +235,7 @@ int main(void)
 			}
 			else
 			{
-				Motor_Stop();
+				Motor_Stop();												// 停止转动
 			}
 		}
   }
@@ -308,14 +306,14 @@ void Motor_Direction(void)
 	/* 延时时间后再来判断按键状态，如果还是按下状态说明按键确实被按下 */
 		if(HAL_GPIO_ReadPin(KEY1_GPIO,KEY1_GPIO_PIN)==KEY1_DOWN_LEVEL&&STEPMOTOR_CIRCLE_NUMBER==0)
 		{
-			if(direction_flag ==1)
+			if(direction_flag ==1)  //逆时针转到底 
 			{
-				Motor_Stop();
-				direction_flag = 0;
+				Motor_Stop();					//立即停止电机转动
+				direction_flag = 0;		//清除状态标识
 				return;
 			}	
-				direction = 0;
-				Circle_number =1000;
+				direction = 0;				//逆时针转动电机
+				Circle_number =1000;	//设置转动圈数
 		}
 	}else if(HAL_GPIO_ReadPin(KEY2_GPIO,KEY2_GPIO_PIN)==KEY2_DOWN_LEVEL)
 	{
@@ -324,14 +322,14 @@ void Motor_Direction(void)
 	/* 延时时间后再来判断按键状态，如果还是按下状态说明按键确实被按下 */
 		if(HAL_GPIO_ReadPin(KEY2_GPIO,KEY2_GPIO_PIN)==KEY2_DOWN_LEVEL&&STEPMOTOR_CIRCLE_NUMBER==0)
 		{
-			if(direction_flag ==2)
+			if(direction_flag ==2)   //顺时针转到底 
 			{
-				Motor_Stop();
-				direction_flag = 0;				
+				Motor_Stop();					 //立即停止电机转动
+				direction_flag = 0;		 //清除状态标识		
 				return;
 			}
-				direction = 1;
-				Circle_number =1000;
+				direction = 1;				 //顺时针转动电机
+				Circle_number =1000;   //设置转动圈数
 		}
 	}else{
 		Motor_Stop();
@@ -349,9 +347,8 @@ void Motor_ToEnd(void)
 {
 	if(HAL_GPIO_ReadPin(KEY3_GPIO,KEY3_GPIO_PIN)==KEY3_DOWN_LEVEL)
 	{
-	//		Motor_Stop();
 	/* 延时一小段时间，消除抖动 */
-	//HAL_Delay(10);
+//	HAL_Delay(10);
 	/* 延时时间后再来判断按键状态，如果还是按下状态说明按键确实被按下
 	PinState = HAL_GPIO_ReadPin(KEY3_GPIO,KEY3_GPIO_PIN); */
 		if(HAL_GPIO_ReadPin(KEY3_GPIO,KEY3_GPIO_PIN)==KEY3_DOWN_LEVEL)
@@ -361,11 +358,8 @@ void Motor_ToEnd(void)
 				case 0:
 					direction_flag =1; //逆时针转到终点
 				break;
-//				case 1:
-//					direction_flag =2; //顺时针转到终点
-//				break;
 				default:
-					direction_flag =0;
+					direction_flag =0; //默认方向按钮控制电机
 					break;
 			}
 		}
@@ -374,7 +368,7 @@ void Motor_ToEnd(void)
 	if(HAL_GPIO_ReadPin(KEY4_GPIO,KEY4_GPIO_PIN)==KEY4_DOWN_LEVEL)
 	{
 	/* 延时一小段时间，消除抖动 */
-	//HAL_Delay(10);
+//	HAL_Delay(10);
 	/* 延时时间后再来判断按键状态，如果还是按下状态说明按键确实被按下
 	PinState = HAL_GPIO_ReadPin(KEY3_GPIO,KEY3_GPIO_PIN); */
 		if(HAL_GPIO_ReadPin(KEY4_GPIO,KEY4_GPIO_PIN)==KEY4_DOWN_LEVEL)
@@ -385,7 +379,7 @@ void Motor_ToEnd(void)
 					direction_flag =2; //顺时针转到终点
 				break;
 				default:
-					direction_flag =0;
+					direction_flag =0; //默认方向按钮控制电机
 					break;
 			}
 		}
