@@ -1,0 +1,26 @@
+--cpu Cortex-M0
+"led_demo\system_stm32f0xx.o"
+"led_demo\bsp_key.o"
+"led_demo\bsp_l298n.o"
+"led_demo\stm32f0xx_hal_tim_ex.o"
+"led_demo\stm32f0xx_hal.o"
+"led_demo\stm32f0xx_hal_cortex.o"
+"led_demo\stm32f0xx_hal_dma.o"
+"led_demo\stm32f0xx_hal_pwr.o"
+"led_demo\stm32f0xx_hal_i2c_ex.o"
+"led_demo\stm32f0xx_hal_flash.o"
+"led_demo\stm32f0xx_hal_tim.o"
+"led_demo\stm32f0xx_hal_i2c.o"
+"led_demo\stm32f0xx_hal_pwr_ex.o"
+"led_demo\stm32f0xx_hal_rcc_ex.o"
+"led_demo\stm32f0xx_hal_gpio.o"
+"led_demo\stm32f0xx_hal_flash_ex.o"
+"led_demo\stm32f0xx_hal_rcc.o"
+"led_demo\startup_stm32f030x6.o"
+"led_demo\stm32f0xx_hal_msp.o"
+"led_demo\stm32f0xx_it.o"
+"led_demo\main.o"
+--library_type=microlib --strict --scatter "LED_Demo\LED_Demo.sct"
+--diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "LED_Demo.map" -o LED_Demo\LED_Demo.axf
