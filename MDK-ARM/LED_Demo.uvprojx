@@ -400,9 +400,19 @@
               <FilePath>..\Src\bsp\bsp_l298n.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_usart.c</FileName>
+              <FileName>flash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Src\bsp\bsp_usart.c</FilePath>
+              <FilePath>..\Src\bsp\flash.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\bsp\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\bsp\usart.c</FilePath>
             </File>
           </Files>
         </Group>

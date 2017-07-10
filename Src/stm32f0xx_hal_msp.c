@@ -1,12 +1,12 @@
 /**
   ******************************************************************************
   * File Name          : stm32f0xx_hal_msp.c
-  * Description        : This file provides code for the MSP Initialization
+  * Description        : This file provides code for the MSP Initialization 
   *                      and de-Initialization codes.
   ******************************************************************************
   ** This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
-  * USER CODE END. Other portions of this file, whether
+  * USER CODE END. Other portions of this file, whether 
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
@@ -48,23 +48,23 @@ extern void _Error_Handler(char *, int);
   */
 void HAL_MspInit(void)
 {
-    /* USER CODE BEGIN MspInit 0 */
+  /* USER CODE BEGIN MspInit 0 */
 
-    /* USER CODE END MspInit 0 */
+  /* USER CODE END MspInit 0 */
 
-    __HAL_RCC_SYSCFG_CLK_ENABLE();
+  __HAL_RCC_SYSCFG_CLK_ENABLE();
 
-    /* System interrupt init*/
-    /* SVC_IRQn interrupt configuration */
-    HAL_NVIC_SetPriority(SVC_IRQn, 0, 0);
-    /* PendSV_IRQn interrupt configuration */
-    HAL_NVIC_SetPriority(PendSV_IRQn, 0, 0);
-    /* SysTick_IRQn interrupt configuration */
-    HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+  /* System interrupt init*/
+  /* SVC_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(SVC_IRQn, 0, 0);
+  /* PendSV_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(PendSV_IRQn, 0, 0);
+  /* SysTick_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 
-    /* USER CODE BEGIN MspInit 1 */
+  /* USER CODE BEGIN MspInit 1 */
 
-    /* USER CODE END MspInit 1 */
+  /* USER CODE END MspInit 1 */
 }
 
 /* USER CODE BEGIN 1 */
